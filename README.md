@@ -11,9 +11,21 @@ Although there are two tracks, I chose to only gather training data from the fir
 
 After looking at some helpful tips online, I decided to go out and get a joystick to help with gathering data. The joystick helps to increase the amount of data outside of a zero degree steering angle - using a keyboard is lots of just momentary changes in angle, while the joystick helped to maintain steering angles around curves. Although my final data was still heavily centered around a zero angle, the full distribution had about half at zero with all remaining angles making up the other half. I also had a good distribution on both negative and positive steering angles (i.e. right and left turns).
 
-Another strategy I read was to make sure to add in lots of recovery data, whereby I start recording from a spot where the car would otherwise soon drift off the track, and therefore train it on the proper angle to recover with. I ran a few laps doing this, after only one or two of trying to stay in the middle of the lane. All in all, I gathered over 10,000 images from the center camera (there is also a left and right camera) to use for training.
+![Histogram](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Image_Histogram.png "Histogram of the steering angle distribution")
+
+Another strategy I read was to make sure to add in lots of recovery data, whereby I start recording from a spot where the car would otherwise soon drift off the track, and therefore train it on the proper angle to recover with. I ran a few laps doing this, after only one or two of trying to stay in the middle of the lane. All in all, I gathered over 14,000 images from the center camera (there is also a left and right camera) to use for training.
+
+![Recovery_left](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Recovery_from_left.jpg "Recovering from the left")
+Gathering data to recover from the left
+![Recovery_right](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Recovery_from_right.jpg "Recovering from the right")
+Gathering data to recover from the right
+![Straight](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Good_driving.jpg "Driving straight")
+An image from driving mainly in the middle of the road
 
 This final total was after a few previous failures (some related to the data, some not, as mentioned below). A big difficulty I ran into was a sharp right turn in front of the lake - the original data I gathered kept sending me into the lake, as the car refused to take a sharp enough turn. However, after gathering another thousand or so images with sharp corrections, the training finally succeeded.
+
+![My Nemesis](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Nemesis.jpg "My Nemesis")
+I had a lot of trouble with this turn.
 
 As far as processing the images went, I resized them down to 25% size (instead of 160x320 I made them 40x80). My first attempt at using autonomous mode failed because of this - I had to update drive.py to include this resizing. Without resizing, the car did not move.
 
