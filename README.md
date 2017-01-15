@@ -1,9 +1,9 @@
 # Behavioral-Cloning
-Udacity SDC Nanodegree Project 3
+##Udacity SDC Nanodegree Project 3
 
 In this project, using image data gathered from a simulator, I trained a neural network to be able to drive the simulated car on its own around a track.
 
-Data Gathering
+###Data Gathering
 
 I gathered training data using Udacity's simulator, and chose to gather data from both training tracks. My model ended up being able to perform well enough to make it fully through both tracks.
 
@@ -14,15 +14,21 @@ After looking at some helpful tips online, I decided to go out and get a joystic
 Another strategy I read was to make sure to add in lots of recovery data, whereby I start recording from a spot where the car would otherwise soon drift off the track, and therefore train it on the proper angle to recover with. I ran a few laps doing this, after only one or two of trying to stay in the middle of the lane. All in all, I gathered over 10,000 images from the center camera (there is also a left and right camera) to use for training.
 
 ![Recovery_left](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Recovery_from_left.jpg "Recovering from the left")
+
 Gathering data to recover from the left
+
 ![Recovery_right](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Recovery_from_right.jpg "Recovering from the right")
+
 Gathering data to recover from the right
+
 ![Straight](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Good_driving.jpg "Driving straight")
+
 An image from driving mainly in the middle of the road
 
 This final total was after a few previous failures (some related to the data, some not, as mentioned below). A big difficulty I ran into was a sharp right turn in front of the lake - the original data I gathered kept sending me into the lake, as the car refused to take a sharp enough turn. However, after gathering another thousand or so images with sharp corrections, the training finally succeeded.
 
 ![My Nemesis](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Nemesis.jpg "My Nemesis")
+
 I had a lot of trouble with this turn.
 
 As far as processing the images went, I resized them down to 25% size (instead of 160x320 I made them 40x80). My first attempt at using autonomous mode failed because of this - I had to update drive.py to include this resizing. Without resizing, the car did not move.
@@ -31,7 +37,7 @@ I also normalized the data at the start of my neural network using a batch norma
 
 Both loading and resizing the data (especially when getting to tens of thousands of images) can take awhile, so although my final model does not include it, I saved the images (and steering angles) into pickle files and reloaded as necessary to train my model to speed up the process from start to finish.
 
-Neural Network Architecture
+###Neural Network Architecture
 
 Given that convolutional neural networks (CNNs) are typically good at identifying important features in images, I decided to do a CNN for my neural network. I started with a network similar to what I had done in a previous lab with Keras. This previous one had used 2 convolutional layers, 1 pooling layer, dropout, flattening, and two more fully connected layers (with dropout in between). I had used relu for all activations until the final one, where I used softmax.
 
@@ -64,6 +70,6 @@ The summary of my model is shown below.
 
 ![Summary](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Model_Summary.png "Model Summary")
 
-Overall
+###Overall
 
 This project was a challenging one, but it was incredibly rewarding to watch the simulated car autonomously drive its way around both tracks the whole way around! 
