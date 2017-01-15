@@ -15,21 +15,21 @@ Another strategy I read was to make sure to add in lots of recovery data, whereb
 
 ![Recovery_left](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Recovery_from_left.jpg "Recovering from the left")
 
-Gathering data to recover from the left
+*Gathering data to recover from the left*
 
 ![Recovery_right](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Recovery_from_right.jpg "Recovering from the right")
 
-Gathering data to recover from the right
+*Gathering data to recover from the right*
 
 ![Straight](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Good_driving.jpg "Driving straight")
 
-An image from driving mainly in the middle of the road
+*An image from driving mainly in the middle of the road*
 
 This final total was after a few previous failures (some related to the data, some not, as mentioned below). A big difficulty I ran into was a sharp right turn in front of the lake - the original data I gathered kept sending me into the lake, as the car refused to take a sharp enough turn. However, after gathering another thousand or so images with sharp corrections, the training finally succeeded.
 
 ![My Nemesis](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Nemesis.jpg "My Nemesis")
 
-I had a lot of trouble with this turn.
+*I had a lot of trouble with this turn.*
 
 As far as processing the images went, I resized them down to 25% size (instead of 160x320 I made them 40x80). My first attempt at using autonomous mode failed because of this - I had to update drive.py to include this resizing. Without resizing, the car did not move.
 
