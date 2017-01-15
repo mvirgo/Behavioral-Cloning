@@ -5,15 +5,13 @@ In this project, using image data gathered from a simulator, I trained a neural 
 
 Data Gathering
 
-I gathered training data using Udacity's simulator.
+I gathered training data using Udacity's simulator, and chose to gather data from both training tracks. My model ended up being able to perform well enough to make it fully through both tracks.
 
-Although there are two tracks, I chose to only gather training data from the first track. This does have the side effect of limited usefulness on the second track, which has less distinct lane lines. I hope to one day come back and make an updated model using data on both tracks that can better generalize; however, for the time being, my model does a great job on track 1.
-
-After looking at some helpful tips online, I decided to go out and get a joystick to help with gathering data. The joystick helps to increase the amount of data outside of a zero degree steering angle - using a keyboard is lots of just momentary changes in angle, while the joystick helped to maintain steering angles around curves. Although my final data was still heavily centered around a zero angle, the full distribution had about half at zero with all remaining angles making up the other half. I also had a good distribution on both negative and positive steering angles (i.e. right and left turns).
+After looking at some helpful tips online, I decided to go out and get a joystick to help with gathering data. The joystick helps to increase the amount of data outside of a zero degree steering angle - using a keyboard is lots of just momentary changes in angle, while the joystick helped to maintain steering angles around curves. Although my final data was still heavily centered around a zero angle, the full distribution was less than half at zero with all remaining angles making up greater than 60% of the total data. I also had a good distribution on both negative and positive steering angles (i.e. right and left turns).
 
 ![Histogram](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Image_Histogram.png "Histogram of the steering angle distribution")
 
-Another strategy I read was to make sure to add in lots of recovery data, whereby I start recording from a spot where the car would otherwise soon drift off the track, and therefore train it on the proper angle to recover with. I ran a few laps doing this, after only one or two of trying to stay in the middle of the lane. All in all, I gathered over 14,000 images from the center camera (there is also a left and right camera) to use for training.
+Another strategy I read was to make sure to add in lots of recovery data, whereby I start recording from a spot where the car would otherwise soon drift off the track, and therefore train it on the proper angle to recover with. I ran a few laps doing this, after only one or two of trying to stay in the middle of the lane. All in all, I gathered over 10,000 images from the center camera (there is also a left and right camera) to use for training.
 
 ![Recovery_left](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Recovery_from_left.jpg "Recovering from the left")
 Gathering data to recover from the left
@@ -41,16 +39,31 @@ Here I ran into another problem. When I entered autonomous mode, the car held a 
 
 As noted above, I added in batch normalization to my network architecture, so that I did not have to do that separately on the training data I gathered and the test set from the simulator. That was the first layer after beginning my sequential model (before an convolutional layers).
 
-From here, I deepened the network a bit to include more layers. The final one ended up with four convolutional layers (then the same pooling, dropout, and flattening as mentioned above), followed by four fully connected layers. Each of the fully connected layers included dropout, in order to prevent any potential overfitting. Note that the final fully connected layer needs to have an output of one, since it needs just one steering angle output. This architecture was what I found to arrive at the best training and validation scores.
+From here, I deepened the network a bit to include more layers. The final one ended up with four convolutional layers (then the same pooling and flattening as mentioned above), followed by four fully connected layers. Note that the final fully connected layer needs to have an output of one, since it needs just one steering angle output. This architecture was what I found to arrive at the best training and validation scores.
+
+I ended up placing dropout around some of the connections with a higher number of parameters (see parameter numbers by layer in my model summary below). After initially using dropout of 0.2 for all convolutional layers down through pooling, and 0.5 for all fully connected layers, I found that only putting them in these spots allowed for much further convergence for the model while still preventing any extreme overfitting.
 
 The convolutional layers have filters totalling 64, 32, 16, and 8 in descending layers. The fully connected layers have output sizes of 128, 64, 32, and 1.
 
-For pooling size, batch size, filter size (in the convolutional layers), epochs, and the nodes for the fully connected layers, I played around a bit to find a good spot for training and validation scores.
+I used the validation scores in order to play around with some of the parameters. The different parameters I attempted were:
+
+Pooling Size: (2,2) and (3,3)
+Batch Size: 50, 100, 150
+Kernel Size (convolutional layers): 2,2, 3,3, and 4,4
+Epochs: 10, 15, 20
+Valid vs. Same padding
+Adam vs. Nadam optimizers
+Number of Convolutional Filters (Half or double those mentioned above)
+Output size of Fully Connected Layers (Half or double those mentioned above)
+
+As can be seen in the model.py file, I went with a pooling size of (2,2), batch size of 00, kernel size of 3,3, 15 epochs, valid padding, the Nadam optimizer, and the layers mentioned already above. These produced the best validation results.
 
 As far as the loss went, I used mean squared error, as the problem of steering angle is akin to a regression problem. I also had it show me the mean squared error as the metric spit out when running the program so that I could see if it was doing well on the real problem at hand.
 
-I also used the Nadam optimizer over the Adam optimizer as that appeared to train better on my data.
+The summary of my model is shown below.
+
+![Summary](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Model_Summary.png "Model Summary")
 
 Overall
 
-This project was a challenging one, but it was incredibly rewarding to watch the simulated car autonomously drive its way around the entire track!
+This project was a challenging one, but it was incredibly rewarding to watch the simulated car autonomously drive its way around both tracks the whole way around! 
