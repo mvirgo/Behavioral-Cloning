@@ -78,9 +78,10 @@ input_shape = X_train.shape[1:]
 model = Sequential()
 model.add(BatchNormalization(input_shape=input_shape))
 
-# Convolutional Layer 1
+# Convolutional Layer 1 and Dropout
 model.add(Convolution2D(64, 3, 3, border_mode='valid', subsample=(1,1)))
 model.add(Activation('relu'))
+model.add(Dropout(0.2))
 
 # Conv Layer 2
 model.add(Convolution2D(32, 3, 3, border_mode='valid', subsample=(1,1)))
@@ -94,14 +95,14 @@ model.add(Activation('relu'))
 model.add(Convolution2D(8, 3, 3, border_mode='valid', subsample=(1,1)))
 model.add(Activation('relu'))
 
-# Pooling and Dropout
+# Pooling
 model.add(MaxPooling2D(pool_size=pool_size))
+
+# Flatten and Dropout
+model.add(Flatten())
 model.add(Dropout(0.5))
 
-# Flatten
-model.add(Flatten())
-
-# Fully Connected Layer 1
+# Fully Connected Layer 1 and Dropout
 model.add(Dense(128))
 model.add(Activation('relu'))
 model.add(Dropout(0.5))
@@ -109,12 +110,10 @@ model.add(Dropout(0.5))
 # FC Layer 2
 model.add(Dense(64))
 model.add(Activation('relu'))
-model.add(Dropout(0.5))
 
 # FC Layer 3
 model.add(Dense(32))
 model.add(Activation('relu'))
-model.add(Dropout(0.5))
 
 # Final FC Layer - just one output - steering angle
 model.add(Dense(1))
@@ -130,3 +129,6 @@ with open("model.json", "w") as json_file:
     json_file.write(model_json)
 
 model.save_weights('model.h5')
+
+# Show summary of model
+model.summary()
