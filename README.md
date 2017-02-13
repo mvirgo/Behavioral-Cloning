@@ -62,7 +62,7 @@ Adam vs. Nadam optimizers
 Number of Convolutional Filters (Half or double those mentioned above)
 Output size of Fully Connected Layers (Half or double those mentioned above)
 
-As can be seen in the model.py file, I went with a pooling size of (2,2), batch size of 00, kernel size of 3,3, 15 epochs, valid padding, the Nadam optimizer, and the layers mentioned already above. These produced the best validation results.
+As can be seen in the model.py file, I went with a pooling size of (2,2), batch size of 100, kernel size of 3,3, 15 epochs, valid padding, the Nadam optimizer, and the layers mentioned already above. These produced the best validation results.
 
 As far as the loss went, I used mean squared error, as the problem of steering angle is akin to a regression problem. I also had it show me the mean squared error as the metric spit out when running the program so that I could see if it was doing well on the real problem at hand.
 
