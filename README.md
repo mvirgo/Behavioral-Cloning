@@ -1,9 +1,9 @@
 # Behavioral-Cloning
-##Udacity SDC Nanodegree Project 3
+## Udacity SDC Nanodegree Project 3
 
 In this project, using image data gathered from a simulator, I trained a neural network to be able to drive the simulated car on its own around a track.
 
-###Data Gathering
+### Data Gathering
 
 I gathered training data using Udacity's simulator, and chose to gather data from both training tracks. My model ended up being able to perform well enough to make it fully through both tracks.
 
@@ -37,7 +37,7 @@ I also normalized the data at the start of my neural network using a batch norma
 
 Both loading and resizing the data (especially when getting to tens of thousands of images) can take awhile, so although my final model does not include it, I saved the images (and steering angles) into pickle files and reloaded as necessary to train my model to speed up the process from start to finish.
 
-###Neural Network Architecture
+### Neural Network Architecture
 
 Given that convolutional neural networks (CNNs) are typically good at identifying important features in images, I decided to do a CNN for my neural network. I started with a network similar to what I had done in a previous lab with Keras. This previous one had used 2 convolutional layers, 1 pooling layer, dropout, flattening, and two more fully connected layers (with dropout in between). I had used relu for all activations until the final one, where I used softmax.
 
@@ -70,6 +70,6 @@ The summary of my model is shown below.
 
 ![Summary](https://github.com/mvirgo/Behavioral-Cloning/blob/master/Model_Summary.png "Model Summary")
 
-###Overall
+### Overall
 
 This project was a challenging one, but it was incredibly rewarding to watch the simulated car autonomously drive its way around both tracks the whole way around! 
