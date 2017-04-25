@@ -26,6 +26,7 @@ print('Loading images. This might take a bit.')
 images = []
 for i in center_image_names:
     image = mpimg.imread(i)
+    image = imresize(image, (40, 80, 3))
     images.append(image)
 
 # Make into numpy arrays
@@ -34,25 +35,6 @@ images = np.array(images).astype(np.float)
 angles = np.array(angles).astype(np.float)
 
 print('All image loaded.')
-
-# Re-size images down to a quarter of original size, to speed up training
-def resize(img):
-    img = imresize(img, (40, 80, 3))
-    return img
-
-def resizing(images):
-    resized_images = []
-    for image in images:
-        r_img = resize(image)
-        resized_images.append(r_img)
-        
-    return np.array(resized_images)
-
-# Run all images through re-sizing
-print('Resizing images. This will also take a bit.')
-images = resizing(images)
-
-print('All images resized.')
 
 # Change to typical training naming conventions
 X_train, y_train = images, angles
