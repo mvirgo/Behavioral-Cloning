@@ -29,12 +29,11 @@ for i in center_image_names:
     image = imresize(image, (40, 80, 3))
     images.append(image)
 
-# Make into numpy arrays
-# The float part helps for visualizing at this point, if desired
-images = np.array(images).astype(np.float)
-angles = np.array(angles).astype(np.float)
+# Make into numpy arrays to feed Keras
+images = np.array(images)
+angles = np.array(angles)
 
-print('All image loaded.')
+print('All images loaded.')
 
 # Change to typical training naming conventions
 X_train, y_train = images, angles
